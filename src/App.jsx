@@ -10,6 +10,29 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // 1. LISTEN TO BROWSER BACK/FORWARD BUTTON CLICKS
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (event.state && event.state.page) {
+        // Change the React page to match the browser's history state
+        setCurrentPage(event.state.page);
+      } else {
+        // Default fallback to home if no state exists
+        setCurrentPage('home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // 2. INTERCEPT PAGE CHANGES TO SAVE THEM IN THE BROWSER HISTORY
+  const navigateToPage = (pageName) => {
+    setCurrentPage(pageName);
+    // Pushes a new state block into the browser's memory timeline
+    window.history.pushState({ page: pageName }, '', `?page=${pageName}`);
+  };
+
   // Smooth viewport reset and close mobile drawer on navigation change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -20,7 +43,7 @@ export default function App() {
     if (currentPage === 'home') {
       window.location.reload();
     } else {
-      setCurrentPage('home');
+      navigateToPage('home');
     }
   };
 
@@ -33,13 +56,13 @@ export default function App() {
 
   const renderActivePage = () => {
     switch (currentPage) {
-      case 'home': return <Home setCurrentPage={setCurrentPage} />;
+      case 'home': return <Home setCurrentPage={navigateToPage} />;
       case 'kenya': return <KenyaShop />;
       case 'japan': return <JapanShop />;
       case 'contact': return <Contact />;
       case 'careers': return <Careers />;
       case 'returns': return <Returns />;
-      default: return <Home setCurrentPage={setCurrentPage} />;
+      default: return <Home setCurrentPage={navigateToPage} />;
     }
   };
 
@@ -75,11 +98,11 @@ export default function App() {
           
           {/* DESKTOP NAVIGATION BAR */}
           <nav className="hidden lg:flex items-center gap-6 text-xs font-black uppercase tracking-widest text-slate-600">
-            <button onClick={() => setCurrentPage('home')} className={`hover:text-slate-950 transition-colors ${currentPage === 'home' ? 'text-[#F97316]' : ''}`}>Home</button>
-            <button onClick={() => setCurrentPage('kenya')} className={`hover:text-slate-950 transition-colors ${currentPage === 'kenya' ? 'text-[#F97316]' : ''}`}>Nairobi Stock</button>
-            <button onClick={() => setCurrentPage('japan')} className={`hover:text-slate-950 transition-colors ${currentPage === 'japan' ? 'text-[#F97316]' : ''}`}>Japan LCL Shop</button>
-            <button onClick={() => setCurrentPage('returns')} className={`hover:text-slate-950 transition-colors ${currentPage === 'returns' ? 'text-[#F97316]' : ''}`}>Return Policy</button>
-            <button onClick={() => setCurrentPage('contact')} className={`hover:text-slate-950 transition-colors ${currentPage === 'contact' ? 'text-[#F97316]' : ''}`}>Contact Desk</button>
+            <button onClick={() => navigateToPage('home')} className={`hover:text-slate-950 transition-colors ${currentPage === 'home' ? 'text-[#F97316]' : ''}`}>Home</button>
+            <button onClick={() => navigateToPage('kenya')} className={`hover:text-slate-950 transition-colors ${currentPage === 'kenya' ? 'text-[#F97316]' : ''}`}>Nairobi Stock</button>
+            <button onClick={() => navigateToPage('japan')} className={`hover:text-slate-950 transition-colors ${currentPage === 'japan' ? 'text-[#F97316]' : ''}`}>Japan LCL Shop</button>
+            <button onClick={() => navigateToPage('returns')} className={`hover:text-slate-950 transition-colors ${currentPage === 'returns' ? 'text-[#F97316]' : ''}`}>Return Policy</button>
+            <button onClick={() => navigateToPage('contact')} className={`hover:text-slate-950 transition-colors ${currentPage === 'contact' ? 'text-[#F97316]' : ''}`}>Contact Desk</button>
           </nav>
 
           {/* MOBILE TOGGLE ICON BUTTON */}
@@ -103,11 +126,11 @@ export default function App() {
           {/* MOBILE ACCESSIBILITY DROP DRAWER GRID */}
           {mobileMenuOpen && (
             <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 p-4 flex flex-col gap-3 text-xs font-black uppercase tracking-widest text-slate-700 shadow-md animate-fadeIn lg:hidden rounded-b-xl">
-              <button onClick={() => setCurrentPage('home')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'home' ? 'text-[#F97316]' : ''}`}>Home</button>
-              <button onClick={() => setCurrentPage('kenya')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'kenya' ? 'text-[#F97316]' : ''}`}>Nairobi Stock</button>
-              <button onClick={() => setCurrentPage('japan')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'japan' ? 'text-[#F97316]' : ''}`}>Japan LCL Shop</button>
-              <button onClick={() => setCurrentPage('returns')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'returns' ? 'text-[#F97316]' : ''}`}>Return Policy</button>
-              <button onClick={() => setCurrentPage('contact')} className={`py-2 text-left ${currentPage === 'contact' ? 'text-[#F97316]' : ''}`}>Contact Desk</button>
+              <button onClick={() => navigateToPage('home')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'home' ? 'text-[#F97316]' : ''}`}>Home</button>
+              <button onClick={() => navigateToPage('kenya')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'kenya' ? 'text-[#F97316]' : ''}`}>Nairobi Stock</button>
+              <button onClick={() => navigateToPage('japan')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'japan' ? 'text-[#F97316]' : ''}`}>Japan LCL Shop</button>
+              <button onClick={() => navigateToPage('returns')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'returns' ? 'text-[#F97316]' : ''}`}>Return Policy</button>
+              <button onClick={() => navigateToPage('contact')} className={`py-2 text-left ${currentPage === 'contact' ? 'text-[#F97316]' : ''}`}>Contact Desk</button>
             </div>
           )}
 
@@ -127,10 +150,7 @@ export default function App() {
           title="Chat with our Nairobi Spares Desk on WhatsApp"
           className="w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#20ba56] text-white rounded-full flex items-center justify-center shadow-[0_4px_14px_rgba(37,211,102,0.4)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.6)] transition-all duration-300 hover:-translate-y-1 active:translate-y-0 relative group focus:outline-none"
         >
-          {/* Proportional, fluid ping indicator ring */}
           <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-35 animate-ping scale-105 group-hover:hidden" />
-          
-          {/* CDN-sourced official sharp vector emblem */}
           <img 
             src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
             alt="WhatsApp Chat Link" 
@@ -153,8 +173,8 @@ export default function App() {
           </div>
 
           <div className="sm:col-span-6 flex flex-wrap justify-center sm:justify-end gap-6 font-bold uppercase tracking-widest text-zinc-400">
-            <button onClick={() => setCurrentPage('contact')} className="hover:text-white transition-colors">Support Desk</button>
-            <button onClick={() => setCurrentPage('careers')} className={`hover:text-white transition-colors ${currentPage === 'careers' ? 'text-[#F97316]' : ''}`}>Careers</button>
+            <button onClick={() => navigateToPage('contact')} className="hover:text-white transition-colors">Support Desk</button>
+            <button onClick={() => navigateToPage('careers')} className={`hover:text-white transition-colors ${currentPage === 'careers' ? 'text-[#F97316]' : ''}`}>Careers</button>
           </div>
 
         </div>

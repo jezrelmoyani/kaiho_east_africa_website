@@ -1,136 +1,165 @@
-import React, { useState } from 'react'
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import JapanShop from './pages/JapanShop'
-import KenyaShop from './pages/KenyaShop'
-import Returns from './pages/Returns'
-import Contact from './pages/Contact'
+import React, { useState, useEffect } from 'react';
+import Home from './pages/Home';
+import KenyaShop from './pages/KenyaShop';
+import JapanShop from './pages/JapanShop';
+import Contact from './pages/Contact';
+import Careers from './pages/Careers';
+import Returns from './pages/Returns';
 
-function App() {
-  const [currentPage, setCurrentPage] = useState('home')
+export default function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Smooth viewport reset and close mobile drawer on navigation change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setMobileMenuOpen(false);
+  }, [currentPage]);
+
+  const handleLogoAction = () => {
+    if (currentPage === 'home') {
+      window.location.reload();
+    } else {
+      setCurrentPage('home');
+    }
+  };
+
+  const handleFloatingWhatsAppClick = () => {
+    const targetNumber = "254795555318";
+    const chatText = "Hello Kaiho East Africa Team, I am browsing your website inventory catalog and would like to quickly verify stock availability for some genuine ex-Japan parts.";
+    const whatsappUrl = `https://wa.me/${targetNumber}?text=${encodeURIComponent(chatText)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const renderActivePage = () => {
+    switch (currentPage) {
+      case 'home': return <Home setCurrentPage={setCurrentPage} />;
+      case 'kenya': return <KenyaShop />;
+      case 'japan': return <JapanShop />;
+      case 'contact': return <Contact />;
+      case 'careers': return <Careers />;
+      case 'returns': return <Returns />;
+      default: return <Home setCurrentPage={setCurrentPage} />;
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-white text-slate-800 flex flex-col justify-between font-sans selection:bg-orange-500/10 selection:text-brand-orange relative">
+    <div className="min-h-screen bg-white font-sans flex flex-col justify-between text-slate-800 antialiased selection:bg-orange-500 selection:text-white relative">
       
-      {/* 1. PURE WHITE BRAND NAVBAR PANEL */}
-      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      {/* 1. COLLAPSIBLE RESPONSIVE HEADER BAR */}
+      <header className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-slate-100 z-50 px-4 sm:px-8 py-3 shadow-2xs">
+        <div className="max-w-7xl mx-auto flex justify-between items-center relative">
+          
+          <div 
+            onClick={handleLogoAction}
+            title="Click to return home or refresh active metrics"
+            className="flex items-center gap-3 cursor-pointer select-none group active:scale-[0.98] transition-transform duration-100"
+          >
+            <div className="w-10 h-10 flex items-center justify-center overflow-hidden rounded-md bg-slate-50 p-1 border border-slate-100 group-hover:border-orange-200 transition-colors">
+              <img 
+                src="/logo.png" 
+                alt="Kaiho Logo" 
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="text-sm font-black uppercase tracking-tight text-slate-950 group-hover:text-[#F97316] transition-colors leading-none">
+                KAIHO
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 leading-none mt-1 group-hover:text-slate-800 transition-colors">
+                EAST AFRICA
+              </span>
+            </div>
+          </div>
+          
+          {/* DESKTOP NAVIGATION BAR */}
+          <nav className="hidden lg:flex items-center gap-6 text-xs font-black uppercase tracking-widest text-slate-600">
+            <button onClick={() => setCurrentPage('home')} className={`hover:text-slate-950 transition-colors ${currentPage === 'home' ? 'text-[#F97316]' : ''}`}>Home</button>
+            <button onClick={() => setCurrentPage('kenya')} className={`hover:text-slate-950 transition-colors ${currentPage === 'kenya' ? 'text-[#F97316]' : ''}`}>Nairobi Stock</button>
+            <button onClick={() => setCurrentPage('japan')} className={`hover:text-slate-950 transition-colors ${currentPage === 'japan' ? 'text-[#F97316]' : ''}`}>Japan LCL Shop</button>
+            <button onClick={() => setCurrentPage('returns')} className={`hover:text-slate-950 transition-colors ${currentPage === 'returns' ? 'text-[#F97316]' : ''}`}>Return Policy</button>
+            <button onClick={() => setCurrentPage('contact')} className={`hover:text-slate-950 transition-colors ${currentPage === 'contact' ? 'text-[#F97316]' : ''}`}>Contact Desk</button>
+          </nav>
 
-      {/* 2. MAIN ACTIVE LAYOUT AREA SWITCHBOARD */}
-      <main className="flex-grow pt-28 pb-16 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 bg-white">
-        {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
-        {currentPage === 'japan' && <JapanShop />}
-        {currentPage === 'kenya' && <KenyaShop />}
-        {currentPage === 'returns' && <Returns />}
-        {currentPage === 'contact' && <Contact />}
+          {/* MOBILE TOGGLE ICON BUTTON */}
+          <button 
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-slate-900 focus:outline-none relative w-8 h-8 flex flex-col justify-center items-center gap-1.5"
+            aria-label="Toggle Navigation Menu"
+          >
+            {mobileMenuOpen ? (
+              <span className="block text-xl font-bold font-mono text-[#F97316]">&times;</span>
+            ) : (
+              <>
+                <span className="w-5 h-0.5 bg-slate-950 rounded-full transition-all" />
+                <span className="w-5 h-0.5 bg-slate-950 rounded-full transition-all" />
+                <span className="w-5 h-0.5 bg-slate-950 rounded-full transition-all" />
+              </>
+            )}
+          </button>
+
+          {/* MOBILE ACCESSIBILITY DROP DRAWER GRID */}
+          {mobileMenuOpen && (
+            <div className="absolute top-full left-0 right-0 bg-white border-b border-slate-200 p-4 flex flex-col gap-3 text-xs font-black uppercase tracking-widest text-slate-700 shadow-md animate-fadeIn lg:hidden rounded-b-xl">
+              <button onClick={() => setCurrentPage('home')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'home' ? 'text-[#F97316]' : ''}`}>Home</button>
+              <button onClick={() => setCurrentPage('kenya')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'kenya' ? 'text-[#F97316]' : ''}`}>Nairobi Stock</button>
+              <button onClick={() => setCurrentPage('japan')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'japan' ? 'text-[#F97316]' : ''}`}>Japan LCL Shop</button>
+              <button onClick={() => setCurrentPage('returns')} className={`py-2 text-left border-b border-slate-50 ${currentPage === 'returns' ? 'text-[#F97316]' : ''}`}>Return Policy</button>
+              <button onClick={() => setCurrentPage('contact')} className={`py-2 text-left ${currentPage === 'contact' ? 'text-[#F97316]' : ''}`}>Contact Desk</button>
+            </div>
+          )}
+
+        </div>
+      </header>
+
+      {/* 2. CORE ACTIVE RENDER MOUNT FRAME */}
+      <main className="flex-grow py-8 sm:py-12 max-w-7xl mx-auto w-full px-4">
+        {renderActivePage()}
       </main>
 
-      {/* 3. PREMIUM THREE-COLUMN CORPORATE FOOTER */}
-      <footer className="bg-slate-900 text-slate-300 border-t border-slate-800 pt-12 pb-8 w-full">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 items-start text-sm font-normal">
+      {/* 3. FLUID & CRISP NATIVE FLOATING WHATSAPP INTERACTOR BADGE */}
+      <div className="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-50">
+        <button
+          type="button"
+          onClick={handleFloatingWhatsAppClick}
+          title="Chat with our Nairobi Spares Desk on WhatsApp"
+          className="w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] hover:bg-[#20ba56] text-white rounded-full flex items-center justify-center shadow-[0_4px_14px_rgba(37,211,102,0.4)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.6)] transition-all duration-300 hover:-translate-y-1 active:translate-y-0 relative group focus:outline-none"
+        >
+          {/* Proportional, fluid ping indicator ring */}
+          <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-35 animate-ping scale-105 group-hover:hidden" />
           
-          {/* COLUMN 1: GET IN TOUCH */}
-          <div className="space-y-4 text-left">
-            <div className="flex items-center gap-2 text-white font-bold tracking-wider uppercase text-base">
-              <span className="text-xl text-brand-orange">📞</span> GET IN TOUCH
+          {/* CDN-sourced official sharp vector emblem */}
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+            alt="WhatsApp Chat Link" 
+            className="w-7 h-7 sm:w-8 sm:h-8 relative z-10 transition-transform duration-300 group-hover:scale-105 select-none pointer-events-none"
+          />
+        </button>
+      </div>
+
+      {/* 4. GLOBAL FOOTER COMPONENT */}
+      <footer className="bg-slate-950 text-white border-t border-zinc-900 py-12 px-4 sm:px-8 mt-16 text-center sm:text-left">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-12 gap-8 items-center text-xs text-zinc-500">
+          
+          <div className="sm:col-span-6 space-y-1">
+            <div className="font-black text-white uppercase tracking-wider">
+              Kaiho East Africa Limited
             </div>
-            <div className="space-y-1.5 text-slate-400 font-normal leading-relaxed">
-              <p className="text-white font-semibold">Atlantis Business Park D31, Off ICD Rd</p>
-              <p>Nairobi - Kenya</p>
-              <p className="pt-2"><span className="text-slate-500 font-medium">Phone:</span> +254 795 110 000</p>
-              <p><span className="text-slate-500 font-medium">Email:</span> info@kaihoeastafrica.co.ke</p>
-              <p className="pt-3 text-xs text-slate-500">&copy; 2026 All Rights Reserved - Kaiho East Africa</p>
-              <p className="text-[11px] text-slate-600">Legal Notice | Privacy Policy</p>
-            </div>
+            <p className="font-normal text-zinc-500">
+              Official Kenyan Subsidiary Branch &copy; 2026. All industrial rights reserved worldwide.
+            </p>
           </div>
 
-          {/* COLUMN 2: CENTER REAL IMAGE LOGO PROFILER */}
-          <div className="flex flex-col items-center justify-center space-y-3 pt-4 md:pt-0">
-            {/* Real Corporate Logo Image pulled directly from your public root layout */}
-            <img 
-              src="/logo.png" 
-              alt="Kaiho East Africa Centermark Logo" 
-              className="h-14 w-auto object-contain"
-              onError={(e) => {
-                // Fallback geometry container if asset gets temporarily renamed
-                e.target.style.display = 'none';
-                document.getElementById('footer-logo-fallback').style.display = 'block';
-              }}
-            />
-            
-            {/* Fallback Icon Box */}
-            <div id="footer-logo-fallback" className="hidden relative w-20 h-12">
-              <div className="absolute w-6 h-6 rotate-45 border-4 border-brand-orange rounded-sm transform translate-x-2"></div>
-              <div className="absolute w-6 h-6 rotate-45 border-4 border-orange-500 rounded-sm transform -translate-x-2"></div>
-            </div>
-
-            <p className="text-xs uppercase font-black text-brand-orange tracking-widest pt-1">We Are Here</p>
-            <p className="text-[10px] text-slate-500 tracking-wider font-mono uppercase">www.kaihoeastafrica.co.ke</p>
-          </div>
-
-          {/* COLUMN 3: SYSTEM LINKS NAVIGATION */}
-          <div className="space-y-4 text-left md:text-right flex flex-col md:items-end">
-            <div className="flex items-center gap-2 text-white font-bold tracking-wider uppercase text-base">
-              <span className="text-xl text-brand-orange">📋</span> NAVIGATION
-            </div>
-            <ul className="space-y-2 text-slate-400 font-normal">
-              <li>
-                <button onClick={() => { setCurrentPage('home'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-brand-orange transition-colors focus:outline-none">
-                  About us
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setCurrentPage('home'); window.scrollTo({top: 600, behavior: 'smooth'}); }} className="hover:text-brand-orange transition-colors focus:outline-none">
-                  Our Services
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setCurrentPage('returns'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-brand-orange transition-colors focus:outline-none">
-                  Purchase & Return Policy
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setCurrentPage('home'); window.scrollTo({top: 2500, behavior: 'smooth'}); }} className="hover:text-brand-orange transition-colors focus:outline-none">
-                  Our FAQ's
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setCurrentPage('contact'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-brand-orange transition-colors focus:outline-none">
-                  Contact us
-                </button>
-              </li>
-              <li>
-                <button onClick={() => { setCurrentPage('japan'); window.scrollTo({top: 0, behavior: 'smooth'}); }} className="hover:text-brand-orange transition-colors font-semibold text-orange-400/90 focus:outline-none">
-                  Buy Direct From Japan
-                </button>
-              </li>
-            </ul>
+          <div className="sm:col-span-6 flex flex-wrap justify-center sm:justify-end gap-6 font-bold uppercase tracking-widest text-zinc-400">
+            <button onClick={() => setCurrentPage('contact')} className="hover:text-white transition-colors">Support Desk</button>
+            <button onClick={() => setCurrentPage('careers')} className={`hover:text-white transition-colors ${currentPage === 'careers' ? 'text-[#F97316]' : ''}`}>Careers</button>
           </div>
 
         </div>
       </footer>
 
-      {/* 4. FLOATING OFFICIAL AUTHENTIC WHATSAPP WIDGET */}
-      <a 
-        href="https://wa.me/254795110000?text=Hello%20Kaiho%20East%20Africa%20team%2C%20I%20am%20browsing%20the%20website%20and%20would%20like%20to%20verify%20parts%20availability%20at%20the%20warehouse."
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 w-14 h-14 bg-[#25D366] hover:bg-[#20ba5a] rounded-full flex items-center justify-center shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 group z-50 animate-bounce"
-        style={{ animationDuration: '3s' }}
-        title="Chat on WhatsApp"
-      >
-        {/* Exact official brand handset path matrix geometry */}
-        <svg className="w-9 h-9 text-white fill-current" viewBox="0 0 24 24">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.454 5.709 1.456h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-
-        {/* Floating Tooltip Label on Hover */}
-        <span className="absolute right-16 bg-slate-950 text-white font-bold text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-md pointer-events-none whitespace-nowrap border border-slate-800">
-          Chat Live with Us
-        </span>
-      </a>
-
     </div>
-  )
+  );
 }
-
-export default App

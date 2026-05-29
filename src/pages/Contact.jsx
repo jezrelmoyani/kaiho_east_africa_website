@@ -1,172 +1,174 @@
 import React, { useState } from 'react';
 
 export default function Contact() {
-  const [copiedText, setCopiedText] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    garage: '',
+    interest: 'local',
+    message: ''
+  });
 
-  const handleCopyToClipboard = (text, label) => {
-    navigator.clipboard.writeText(text);
-    setCopiedText(label);
-    setTimeout(() => setCopiedText(''), 2500);
+  const handleNativeEmailRedirect = (e) => {
+    e.preventDefault();
+    
+    // 1. Structure a clear, professional email subject line based on their choice
+    const subjectPrefix = formData.interest === 'local' 
+      ? "Nairobi Warehouse Stock Inquiry (Unit D31)" 
+      : "Japan LCL Order Status Request (Topmarine Track)";
+    
+    const subject = `${subjectPrefix} - ${formData.name}`;
+
+    // 2. Build a beautifully formatted email body text string
+    const emailBody = `Hello Kaiho East Africa Team,\n\n` +
+      `I am submitting an inquiry through the portal. Here are my operational details:\n\n` +
+      `• Full Name: ${formData.name}\n` +
+      `• Phone / WhatsApp: ${formData.phone}\n` +
+      `• Garage / Corporate Name: ${formData.garage || 'Not Specified'}\n` +
+      `• Sourcing Stream: ${formData.interest === 'local' ? 'Nairobi Warehouse Inventory' : 'Direct Japan Import (LCL)'}\n\n` +
+      `• Specified Requirements:\n"${formData.message}"\n\n` +
+      `Please get back to me as soon as possible.`;
+
+    // 3. Construct the clean mailto string protocol link
+    const mailtoUrl = `mailto:sales@kaihoeastafrica.co.ke?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+
+    // 4. Instantly redirect the user's browser to open their native mail client
+    window.location.href = mailtoUrl;
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-12 animate-fadeIn pb-12 bg-white">
+    <div className="space-y-12 sm:space-y-16 bg-white text-slate-700 animate-fadeIn text-left pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
-      {/* 1. HEADER */}
-      <div className="text-center space-y-3 max-w-2xl mx-auto">
-        <span className="text-xs uppercase tracking-widest font-bold text-brand-orange px-3 py-1 rounded-full bg-orange-50 border border-orange-100 inline-block">
-          Logistics Control Desk
+      {/* 1. INTRO BANNER (Fully Responsive Typography) */}
+      <div className="space-y-3 max-w-3xl">
+        <span className="text-xs font-black uppercase tracking-[0.25em] text-[#F97316] block">
+          Connect With Our Logistics Team
         </span>
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
-          Contact Our Sourcing Specialists
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 uppercase tracking-tight">
+          Get In Touch Today
         </h1>
-        <p className="text-base text-slate-600 font-normal leading-relaxed">
-          Connect directly with our team to check warehouse availability in Nairobi or coordinate custom container dispatches from our parent facility in Japan.
+        <p className="text-xs sm:text-sm md:text-base text-slate-500 font-normal leading-relaxed">
+          Whether you are a fleet supervisor looking for wholesale engine rates, an insurance claim adjuster validating body cuts, or an individual owner looking for a specific gearbox—our cross-continental support channels are ready to assist.
         </p>
       </div>
 
-      {/* 2. CHANNELS BAR */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
-        <a 
-          href="tel:+254795110000" 
-          className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl hover:border-brand-orange/50 hover:bg-slate-50 transition-all shadow-xs group"
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-xl">📞</span>
-            <div className="text-left">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Voice Hotline</p>
-              <p className="text-sm font-bold text-slate-900">+254 795 110 000</p>
-            </div>
-          </div>
-          <span className="text-slate-400 group-hover:text-brand-orange transition-colors text-sm">→</span>
-        </a>
-
-        <a 
-          href="https://wa.me/254795110000" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl hover:border-emerald-500/50 hover:bg-slate-50 transition-all shadow-xs group"
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-xl">💬</span>
-            <div className="text-left">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">WhatsApp Line</p>
-              <p className="text-sm font-bold text-slate-900">Instant Chat Link</p>
-            </div>
-          </div>
-          <span className="text-slate-400 group-hover:text-emerald-500 transition-colors text-sm">→</span>
-        </a>
-
-        <div 
-          onClick={() => handleCopyToClipboard('export2@kaiho.co.jp', 'email')}
-          className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl hover:border-slate-400 transition-all shadow-xs cursor-pointer group"
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-xl">✉️</span>
-            <div className="text-left">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Corporate Mail</p>
-              <p className="text-sm font-bold text-slate-900">
-                {copiedText === 'email' ? '✨ Copied!' : 'export2@kaiho.co.jp'}
-              </p>
-            </div>
-          </div>
-          <span className="text-slate-400 text-[10px] font-bold uppercase">{copiedText === 'email' ? '' : 'Copy'}</span>
-        </div>
-      </div>
-
-      {/* 3. REGIONAL LOCATION CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto pt-2">
-        
-        {/* NAIROBI CARD */}
-        <div className="border border-slate-200 rounded-xl p-6 bg-white shadow-xs flex flex-col justify-between border-t-4 border-t-brand-orange">
-          <div className="space-y-4">
-            <div className="flex justify-between items-start">
-              <div className="space-y-1">
-                <span className="text-[10px] uppercase tracking-wider font-bold text-brand-orange bg-orange-50 px-2 py-0.5 rounded">
-                  Nairobi Direct Terminal
-                </span>
-                <h3 className="text-xl font-bold text-slate-900">Kaiho East Africa Hub</h3>
-              </div>
-              <span className="text-2xl">📍</span>
-            </div>
-
-            <hr className="border-slate-100" />
-
-            <div className="space-y-3">
-              <p className="text-base text-slate-600 font-normal leading-relaxed">
-                <strong className="text-slate-900 block font-semibold">Atlantis Business Park</strong>
-                Warehouse Number D31, ICD Road,<br />
-                Off Maasai Road, Nairobi, Kenya.
-              </p>
-              <p className="text-base text-slate-600 font-normal leading-relaxed bg-slate-50 p-2 rounded border border-slate-100">
-                <span className="font-semibold text-slate-700">Hours:</span> Mon - Sat | 8:00am - 5:00pm
-              </p>
-              <p className="text-base text-slate-600 font-normal leading-relaxed">
-                ℹ️ On-site loading equipment and forklifts ready.
-              </p>
-            </div>
-          </div>
-
-          <div className="pt-6">
-            <a 
-              href="https://maps.google.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="w-full bg-slate-900 hover:bg-slate-800 text-white text-center py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider block transition-colors shadow-xs"
-            >
-              Open Google Maps Route
-            </a>
-          </div>
+      {/* 2. RESPONSIVE DISPATCH FORM */}
+      <div className="bg-slate-950 text-white rounded-2xl p-5 sm:p-8 shadow-xl border border-zinc-800 space-y-6">
+        <div className="space-y-1">
+          <span className="text-[10px] font-black uppercase tracking-widest text-[#F97316] block">Direct Mailbox Dispatch</span>
+          <h2 className="text-lg sm:text-xl font-bold uppercase tracking-tight text-white">Send An Instant Message</h2>
         </div>
 
-        {/* JAPAN CARD */}
-        <div className="border border-slate-200 rounded-xl p-6 bg-white shadow-xs flex flex-col justify-between border-t-4 border-t-slate-800">
-          <div className="space-y-4">
-            <div className="flex justify-between items-start">
-              <div className="space-y-1">
-                <span className="text-[10px] uppercase tracking-wider font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
-                  Corporate Parent Headquarters
-                </span>
-                <h3 className="text-xl font-bold text-slate-900">Kaiho Industry Co., Ltd.</h3>
-              </div>
-              <span className="text-2xl">🇯🇵</span>
+        <form onSubmit={handleNativeEmailRedirect} className="space-y-5 text-slate-300">
+          
+          {/* Row 1: Name & Phone (Stacks on mobile, side-by-side on tablet/desktop) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-[10px] uppercase font-black tracking-wider text-slate-400 block">Your Full Name</label>
+              <input 
+                type="text" 
+                required
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                placeholder="e.g., John Kamau" 
+                className="w-full bg-zinc-900 border border-zinc-800 text-white rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-brand-orange transition-colors"
+              />
             </div>
-
-            <hr className="border-slate-100" />
-
-            <div className="space-y-3">
-              <p className="text-base text-slate-600 font-normal leading-relaxed">
-                <strong className="text-slate-900 block font-semibold">Japan Sourcing Head Office</strong>
-                1-25 Higashikagatsume-machi,<br />
-                Kanazawa, Ishikawa,<br />
-                Japan, 9200209.
-              </p>
-              <p className="text-base text-slate-600 font-normal leading-relaxed bg-slate-50 p-2 rounded border border-slate-100">
-                <span className="font-semibold text-slate-700">Hours:</span> Mon - Fri | 8:00am - 5:00pm (JST)
-              </p>
-              <p className="text-base text-slate-600 font-normal leading-relaxed">
-                ℹ️ Dedicated loose container container configurations.
-              </p>
+            <div className="space-y-1">
+              <label className="text-[10px] uppercase font-black tracking-wider text-slate-400 block">Phone / WhatsApp Number</label>
+              <input 
+                type="tel" 
+                required
+                value={formData.phone}
+                onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                placeholder="e.g., 0795555318" 
+                className="w-full bg-zinc-900 border border-zinc-800 text-white rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-brand-orange transition-colors"
+              />
             </div>
           </div>
 
-          <div className="pt-6">
+          {/* Row 2: Garage & Target Stream (Stacks on mobile, side-by-side on tablet/desktop) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-[10px] uppercase font-black tracking-wider text-slate-400 block">Garage / Corporate Name (Optional)</label>
+              <input 
+                type="text" 
+                value={formData.garage}
+                onChange={(e) => setFormData({...formData, garage: e.target.value})}
+                placeholder="e.g., Elite Auto Mechanics" 
+                className="w-full bg-zinc-900 border border-zinc-800 text-white rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-brand-orange transition-colors"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="text-[10px] uppercase font-black tracking-wider text-slate-400 block">Inquiry Stream Target</label>
+              <select 
+                value={formData.interest}
+                onChange={(e) => setFormData({...formData, interest: e.target.value})}
+                className="w-full bg-zinc-900 border border-zinc-800 text-brand-orange rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-brand-orange transition-colors font-bold"
+              >
+                <option value="local">Nairobi Warehouse Stock (Unit D31)</option>
+                <option value="lcl">Direct Japan LCL Order Status (Topmarine Track)</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Row 3: Text Message Area */}
+          <div className="space-y-1">
+            <label className="text-[10px] uppercase font-black tracking-wider text-slate-400 block">Specify Engine Parts or Panel Requirements</label>
+            <textarea 
+              rows="4"
+              required
+              value={formData.message}
+              onChange={(e) => setFormData({...formData, message: e.target.value})}
+              placeholder="Provide precise details (e.g., looking for a clean 1NZ engine block or a right-side front door matching a Toyota Fielder)..." 
+              className="w-full bg-zinc-900 border border-zinc-800 text-white rounded-xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:border-brand-orange transition-colors resize-none"
+            />
+          </div>
+
+          {/* Action Button */}
+          <div className="pt-2">
             <button 
-              onClick={() => handleCopyToClipboard('1-25 Higashikagatsume-machi, Kanazawa, Ishikawa, Japan', 'jpAddress')}
-              className="w-full bg-slate-50 hover:bg-slate-100 text-slate-700 text-center py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider block transition-colors border border-slate-200 shadow-2xs"
+              type="submit" 
+              className="w-full py-4 bg-[#F97316] hover:bg-white hover:text-slate-950 text-white text-xs sm:text-sm font-black uppercase tracking-widest rounded-xl transition-all duration-200 shadow-md transform active:scale-[0.99]"
             >
-              {copiedText === 'jpAddress' ? '✨ Address Copied!' : 'Copy Japanese Address'}
+              Open Email App & Send Request
             </button>
           </div>
-        </div>
-
+        </form>
       </div>
 
-      {/* 4. MECHANIC CALLOUT */}
-      <div className="bg-orange-50/50 border border-orange-100 rounded-xl p-4 text-center max-w-4xl mx-auto">
-        <p className="text-base text-slate-600 font-normal leading-relaxed">
-          💡 <span className="font-semibold text-slate-900">Bringing your mechanic?</span> Our warehouse floor at <span className="font-semibold text-slate-900">Warehouse D31</span> has diagnostic space ready so you can fully inspect component blocks, checking seals or structural setups before loading.
-        </p>
+      {/* 3. HORIZONTAL RUNNING LOGISTICS NARRATIVE PATH */}
+      <section className="bg-slate-50 border border-slate-200 rounded-2xl p-5 sm:p-8 space-y-6 text-xs sm:text-sm leading-relaxed text-slate-600 shadow-2xs">
+        <div className="space-y-2">
+          <p className="font-normal">
+            <strong className="text-slate-950 font-black uppercase tracking-wider text-xs border-b-2 border-[#F97316] pb-0.5 mr-2 block sm:inline mb-1 sm:mb-0 w-max">
+              Local Storage Compound:
+            </strong> 
+            Our physical local operations are centralized inside <strong className="text-slate-900 font-bold">Atlantis Business Park, Warehouse No. D31</strong>, located directly along <span className="text-slate-900 font-medium">ICD Road, off Maasai Road, Nairobi, Kenya</span>. We are open Monday to Saturday for live drive-in technical inspections and instant forklift cargo loading. For real-time updates regarding on-site spares, dial our main office support desk line at <strong className="text-slate-950 font-mono font-bold">+254 795 555 318</strong> or transmit part specification requests directly to <span className="text-slate-900 font-mono font-bold">sales@kaihoeastafrica.co.ke</span>.
+          </p>
+        </div>
+        
+        <div className="pt-4 border-t border-slate-200">
+          <p className="font-normal">
+            <strong className="text-slate-950 font-black uppercase tracking-wider text-xs border-b-2 border-slate-950 pb-0.5 mr-2 block sm:inline mb-1 sm:mb-0 w-max">
+              LCL Customs Clearance Hub:
+            </strong> 
+            All components processed on demand via our digital Japan Sourcing LCL web platform completely bypass the Atlantis Park compound. Imported cargo is transferred directly to the secure <strong className="text-slate-900 font-bold">Topmarine Terminal Mombasa Road Collection Depot</strong>. Customers will collect their cleared custom containers straight from the dedicated <span className="text-slate-900 font-medium">Topmarine Warehouse along Mombasa Road, Nairobi</span>. Your current import transit status can be cross-checked directly at any time utilizing your automated shop receipt keys.
+          </p>
+        </div>
+      </section>
+
+      {/* 4. BACKGROUND DISPLAY PANEL */}
+      <div className="w-full h-36 sm:h-48 rounded-2xl overflow-hidden border border-slate-200 shadow-sm relative bg-slate-100 group">
+        <img 
+          src="/image2.jpg" 
+          alt="Kaiho Compound Overview" 
+          className="w-full h-full object-cover filter brightness-95 grayscale group-hover:grayscale-0 transition-all duration-500"
+          onError={(e) => {
+            e.target.src = "https://images.unsplash.com/photo-1524661135339-9140b00787e3?auto=format&fit=crop&q=80&w=1200";
+          }}
+        />
+        <div className="absolute inset-0 bg-slate-950/10" />
       </div>
 
     </div>

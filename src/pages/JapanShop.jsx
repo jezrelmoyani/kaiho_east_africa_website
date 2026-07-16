@@ -165,7 +165,7 @@ export default function JapanShop() {
       <div className="bg-slate-950 text-white rounded-2xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center shadow-xl border border-slate-800">
         <div className="md:col-span-8 space-y-2">
           <span className="text-xs uppercase tracking-widest font-black text-brand-orange block">Clear Logistics Directive</span>
-          <h3 className="text-xl font-bold tracking-tight uppercase">Mombasa Road Warehouse Collection</h3>
+          <h3 className="text-xl font-bold tracking-tight uppercase">Nairobi Warehouse Collection</h3>
           <p className="text-xs sm:text-sm text-slate-400 font-normal leading-relaxed max-w-xl">
             To keep your supply chain perfectly streamlined, please note that custom-ordered parts imported from Japan are **not** held at our Atlantis Business Park spares facility. Once cleared at the port, your items go directly to the secure **Topmarine Warehouse along Mombasa Road, Nairobi** for direct customer pickup.
           </p>

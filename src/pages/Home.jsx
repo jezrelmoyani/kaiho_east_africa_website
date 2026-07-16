@@ -213,7 +213,7 @@ export default function Home({ setCurrentPage }) {
         </div>
 
         <div className="space-y-6 max-w-4xl mx-auto pt-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-brand-orange text-xs font-black tracking-widest uppercase">Immediate Pickup: Atlantis Business Park, Warehouse Number D31, ICD Road, Old Mombasa RoadNairobi</div>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-brand-orange text-xs font-black tracking-widest uppercase">Location: Atlantis Business Park, Warehouse Number D31, ICD Road, Old Mombasa Road - Nairobi</div>
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight uppercase">Ready Stock: <span className="text-brand-orange bg-gradient-to-r from-orange-600 to-amber-500 bg-clip-text text-transparent">Premium Used Engines</span> & Genuine Spares</h2>
           <p className="text-base sm:text-lg text-slate-500 max-w-2xl mx-auto font-normal leading-relaxed">Skip the sea freight waiting time. Buy high-grade, compression-tested Japanese automotive assemblies straight from our warehouse floor in Nairobi today.</p>
           <div className="flex flex-wrap justify-center gap-4 pt-4">

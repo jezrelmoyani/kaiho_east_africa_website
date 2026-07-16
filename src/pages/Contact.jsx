@@ -144,7 +144,7 @@ export default function Contact() {
             <strong className="text-slate-950 font-black uppercase tracking-wider text-xs border-b-2 border-[#F97316] pb-0.5 mr-2 block sm:inline mb-1 sm:mb-0 w-max">
               Local Storage Compound:
             </strong> 
-            Our physical local operations are centralized inside <strong className="text-slate-900 font-bold">Atlantis Business Park, Warehouse No. D31</strong>, located directly along <span className="text-slate-900 font-medium">ICD Road, off Maasai Road, Nairobi, Kenya</span>. We are open Monday to Saturday for live drive-in technical inspections and instant forklift cargo loading. For real-time updates regarding on-site spares, dial our main office support desk line at <strong className="text-slate-950 font-mono font-bold">+254 795 555 318</strong> or transmit part specification requests directly to <span className="text-slate-900 font-mono font-bold">sales@kaihoeastafrica.co.ke</span>.
+            Our physical local operations are centralized inside <strong className="text-slate-900 font-bold">Atlantis Business Park, Warehouse No. D31</strong>, located directly along <span className="text-slate-900 font-medium">ICD Road, off Maasai Road, Nairobi, Kenya</span>. We are open Monday to Friday from 9am to 5pmFor real-time updates regarding on-site spares, dial our main office support desk line at <strong className="text-slate-950 font-mono font-bold">+254 795 555 318</strong> or transmit part specification requests directly to <span className="text-slate-900 font-mono font-bold">sales@kaihoeastafrica.co.ke</span>.
           </p>
         </div>
         

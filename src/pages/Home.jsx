@@ -249,7 +249,7 @@ export default function Home({ setCurrentPage }) {
           <span className="text-xs font-black uppercase tracking-widest text-brand-orange">Kenyan Operations</span>
           <h2 className="text-3xl font-bold tracking-tight text-slate-900">Direct From Our Nairobi Distribution Warehouse</h2>
           <p className="text-base text-slate-600 font-normal leading-relaxed">Kaiho East Africa is the official, direct Kenyan branch of <strong>Kaiho Industry Co., Ltd.</strong> in Kanazawa, Japan. We do not operate like typical third-party brokers—we own our stock from vehicle purchase in Japan down to our warehouse layout in Nairobi.</p>
-          <p className="text-base text-slate-600 font-normal leading-relaxed">Our priority is keeping high-demand components completely available on-site at <strong>Atlantis Business Park, Warehouse Number D31 (ICD Road / Maasai Road)</strong>. You can drive in, inspect the units live with your mechanic, and load your items immediately.</p>
+          <p className="text-base text-slate-600 font-normal leading-relaxed">Our priority is keeping high-demand spare parts completely available on-site at <strong>Atlantis Business Park, Warehouse Number D31 (ICD Road / Maasai Road)</strong>. You can drive in, inspect the units live with your mechanic, and load your items immediately.</p>
         </div>
         <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-4 border-l-4 border-l-brand-orange transition-all duration-300 hover:shadow-md hover:border-slate-300">
           <div className="text-xs font-bold tracking-widest text-slate-400 uppercase">Warehouse Information Profile</div>

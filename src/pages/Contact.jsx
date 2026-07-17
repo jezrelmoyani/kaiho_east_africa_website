@@ -42,13 +42,13 @@ export default function Contact() {
       {/* 1. INTRO BANNER (Fully Responsive Typography) */}
       <div className="space-y-3 max-w-3xl">
         <span className="text-xs font-black uppercase tracking-[0.25em] text-[#F97316] block">
-          Connect With Our Logistics Team
+          Connect With Us
         </span>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 uppercase tracking-tight">
           Get In Touch Today
         </h1>
         <p className="text-xs sm:text-sm md:text-base text-slate-500 font-normal leading-relaxed">
-          Whether you are a fleet supervisor looking for wholesale engine rates, an insurance claim adjuster validating body cuts, or an individual owner looking for a specific gearbox—our cross-continental support channels are ready to assist.
+          Whether you are a fleet supervisor looking for wholesale engine rates, an insurance claim adjuster validating body cuts, or an individual owner looking for a specific Engine - our Front Desk support are ready to assist.
         </p>
       </div>
 
@@ -144,14 +144,14 @@ export default function Contact() {
             <strong className="text-slate-950 font-black uppercase tracking-wider text-xs border-b-2 border-[#F97316] pb-0.5 mr-2 block sm:inline mb-1 sm:mb-0 w-max">
               Local Storage Compound:
             </strong> 
-            Our physical local operations are centralized inside <strong className="text-slate-900 font-bold">Atlantis Business Park, Warehouse No. D31</strong>, located directly along <span className="text-slate-900 font-medium">ICD Road, off Maasai Road, Nairobi, Kenya</span>. We are open Monday to Friday from 9am to 5pmFor real-time updates regarding on-site spares, dial our main office support desk line at <strong className="text-slate-950 font-mono font-bold">+254 795 555 318</strong> or transmit part specification requests directly to <span className="text-slate-900 font-mono font-bold">sales@kaihoeastafrica.co.ke</span>.
+            Our physical local operations are centralized inside <strong className="text-slate-900 font-bold">Atlantis Business Park, Warehouse No. D31</strong>, located directly along <span className="text-slate-900 font-medium">ICD Road, off Maasai Road, Nairobi, Kenya</span>. We are open Monday to Friday from 9am to 5pm. For real-time updates regarding on-site spares, dial our main office support desk line at <strong className="text-slate-950 font-mono font-bold">+254 795 555 318</strong> or transmit part specification requests directly to <span className="text-slate-900 font-mono font-bold">sales@kaihoeastafrica.co.ke</span>.
           </p>
         </div>
         
         <div className="pt-4 border-t border-slate-200">
           <p className="font-normal">
             <strong className="text-slate-950 font-black uppercase tracking-wider text-xs border-b-2 border-slate-950 pb-0.5 mr-2 block sm:inline mb-1 sm:mb-0 w-max">
-              LCL Customs Clearance Hub:
+              LCL Orders / Impotation:
             </strong> 
             All components processed on demand via our digital Japan Sourcing LCL web platform completely bypass the Atlantis Park compound. Imported cargo is transferred directly to the secure <strong className="text-slate-900 font-bold">Topmarine Terminal Mombasa Road Collection Depot</strong>. Customers will collect their cleared custom containers straight from the dedicated <span className="text-slate-900 font-medium">Topmarine Warehouse along Mombasa Road, Nairobi</span>. Your current import transit status can be cross-checked directly at any time utilizing your automated shop receipt keys.
           </p>

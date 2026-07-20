@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Home -->
+  <url>
+       <loc>https://kaihoeastafrica.co.ke/</loc>
+       <lastmod>2026-07-20T11:45:00+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0000</priority>
+  </url>
+
+  <!-- Nairobi Stock / Kenya -->
+  <url>
+       <loc>https://kaihoeastafrica.co.ke/?page=kenya</loc>
+       <lastmod>2026-07-20T11:45:00+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+
+  <!-- Japan LCL Shop / Japan -->
+  <url>
+       <loc>https://kaihoeastafrica.co.ke/?page=japan</loc>
+       <lastmod>2026-07-20T11:45:00+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+
+  <!-- Return Policy -->
+  <url>
+       <loc>https://kaihoeastafrica.co.ke/?page=returns</loc>
+       <lastmod>2026-07-20T11:45:00+00:00</lastmod>
+       <changefreq>monthly</changefreq>
+       <priority>0.5000</priority>
+  </url>
+
+  <!-- Contact Desk -->
+  <url>
+       <loc>https://kaihoeastafrica.co.ke/?page=contact</loc>
+       <lastmod>2026-07-20T11:45:00+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+
+  <!-- Careers -->
+  <url>
+       <loc>https://kaihoeastafrica.co.ke/?page=careers</loc>
+       <lastmod>2026-07-20T11:49:00+00:00</lastmod>
+       <changefreq>monthly</changefreq>
+       <priority>0.6000</priority>
+  </url>
+
+</urlset>
